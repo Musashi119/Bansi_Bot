@@ -409,3 +409,20 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+    # =========================
+# 🛠️ Keep-alive Ping Server
+# =========================
+from aiohttp import web
+
+async def ping(request):
+    return web.Response(text="pong")
+
+def start_ping_server():
+    app = web.Application()
+    app.add_routes([web.get('/ping', ping)])
+    web.run_app(app, port=8080)
+
+import threading
+threading.Thread(target=start_ping_server, daemon=True).start()
+
